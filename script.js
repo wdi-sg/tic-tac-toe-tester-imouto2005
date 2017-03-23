@@ -14,10 +14,10 @@ $(document).ready(function() {
   }
 
   $("td").click(function() {
-    if (player === 1) {
+    if (player === 1 && $(this).is(':empty')) {
       $(this).append("X");
       console.log('player1');
-    } else {
+    } else if (player === 2 && $(this).is(':empty')){
       $(this).append("O");
     }
     var id = $(this).attr('id');
@@ -25,12 +25,10 @@ $(document).ready(function() {
   });
 
   function isGameOver() {
-    console.log('isGaeOver')
     if (whoWon() === 1 || whoWon() === 2) {
       console.log('game Over')
       return true
     }
-    console.log('game go on')
     return false
   }
 
@@ -47,6 +45,7 @@ $(document).ready(function() {
       ($('#2').text() === "X" && $('#4').text() === "X" && $('#6').text() === "X")
     ) {
       document.getElementById('player-message').textContent = "PLAYER 1 WINS!"
+      setTimeout(restart,1000)
       return 1
     } else if ( // player 2 wins
       ($('#0').text() === "O" && $('#1').text() === "O" && $('#2').text() === "O") ||
@@ -59,6 +58,7 @@ $(document).ready(function() {
       ($('#2').text() === "O" && $('#4').text() === "O" && $('#6').text() === "O")
     ) {
       document.getElementById('player-message').textContent = "PLAYER 2 WINS!"
+      setTimeout(restart,1000)
       return 2
     } else if (gameBoard.length === 9) {
       console.log("draw")
